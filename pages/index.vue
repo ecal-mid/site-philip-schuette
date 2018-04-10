@@ -11,36 +11,52 @@
     .block
       h1 Sensory Augmentation & Brain Plasticity
       .description {{description}}
-    .block
-      .title
-        h1 Abstract Data
-        h3 Kylan Lüginbuhl & Evan
-      img(src='img/poster.jpg')
-    .block
-      h3 text
-    .block
-      h1 New Function
-      img(src='img/poster2.jpg')
-    .block
-      h3 text
-    .block
-      img(src='img/poster3.jpg')
-    .block
-      img(src='img/poster4.jpg')
-    .block
-      img(src='img/poster5.jpg')
-    .block
-      img(src='img/poster6.jpg')
-
+    template(
+      v-for='project in content.projects'
+    )
+      .block
+        .title
+          h1 {{project.title}}
+        .students
+          h5(v-for='student in project.students') {{student}}
+        .poster
+          img(:src='project.poster')
+      .block.slider
+        .swiper-wrapper
+          template(v-for='imgTmp in project.img')
+            .swiper-slide(
+              v-for='index in (imgTmp.recursive[1] - imgTmp.recursive[0])'
+              v-if='imgTmp.recursive'
+              :style='{"background-image": "url(\'"+ (imgTmp.path + recursiveName(index + 1, imgTmp.recursiveName)) + "\')"}'
+            )
+      
 </template>
 
 
 <script>
 import description from '@/static/description'
+import content from '@/static/content'
+const Swiper = require('swiper').default
 export default {
   data() {
     return {
+      content,
       description
+    }
+  },
+  mounted() {
+    console.log(Swiper)
+    const mySwiper = new Swiper ('.slider', {
+      // Optional parameters
+      direction: 'horizontal',
+      loop: true
+    })
+  },
+  methods: {
+    recursiveName(index, name) {
+      const splitName = name.split('/%num/%')
+      console.log(splitName)
+      return splitName[0] + index + splitName[1]
     }
   }
 }
@@ -80,6 +96,18 @@ body
     img
       width: 100%
       margin-bottom: -4px
+.slider
+  .swiper-wrapper
+    width: 100%
+    height: 100%
+    .swiper-slide
+      float: left
+      width: 100%
+      height: 100%
+      background-color: grey
+      background-position: 50% 50%
+      background-size: contain
+      background-repeat: no-repeat
 #menu
   position: fixed
 </style>

@@ -1,0 +1,19 @@
+{"projects": [
+    {
+        "title": "Data Scent",
+        "students": ["Aurélien Pellegrini", "Bastien Claessens", "Evant Kelly", "Léonarg Guyot"],
+        "poster": "img/posters/poster.jpg",
+        "img": [
+            {
+                "path": "img/data_scent/3d/",
+                "recursive": [1, 20],
+                "recursiveName": "TheDataScent(/%num/%).jpg"
+            },
+            {
+                "path": "img/data_scent/2d/",
+                "recursive": [1, 7],
+                "recursiveName": "Visu_0/%num/%.png"
+            }
+        ]
+    }
+]}
